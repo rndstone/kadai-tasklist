@@ -1,21 +1,21 @@
 class TasksController < ApplicationController 
+  before_action :set_task, only:[:show, :edit, :update, :destroy]
   def index
     @tasks = Task.all
   end
 
   def show
-    @task = Task.find(params[:id])
   end
 
   def new
-    @tasks = Task.new
+    @task = Task.new
   end
 
   def create
-    @tasks = Task.new(tasks_parameters)
-    if @tasks.save
+    @task = Task.new(task_parameters)
+    if @task.save
       flash[:sucess] = 'タスクが正常に追加されました'
-      redirect_to @tasks
+      redirect_to @task
     else
       flash.now[:danger] = 'タスクの追加に失敗しました'
       render :new
@@ -23,22 +23,19 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @tasks = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
-    if @task.update(tasks_parameters)
+    if @task.update(task_parameters)
       flash[:sucess] = 'taskは正常に更新されました'
       redirect_to @task
     else
-      falsh.now[:danger] = 'taskの更新に失敗しました'
+      flash.now[:danger] = 'taskの更新に失敗しました'
       render :edit
     end
   end
 
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     flash[:sucess] = 'taskは正常に削除されました。'
     redirect_to tasks_url
@@ -46,8 +43,11 @@ class TasksController < ApplicationController
   
   private
   
-  def tasks_parameters
-    params.require(:task).permit(:content)
+  def task_parameters
+    params.require(:task).permit(:content, :status)
   end
-
+  
+  def set_task
+    @task = Task.find(params[:id])
+  end
 end
