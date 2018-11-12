@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @user_task = current_user.tasks.find_by(id: params[:id])
   end
 
   def new
@@ -20,7 +21,7 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(task_parameters)
     if @task.save
       flash[:success] = 'タスクが正常に追加されました'
-      redirect_to @task
+      redirect_to task_path(@task)
     else
       flash.now[:danger] = 'タスクの追加に失敗しました'
       render :new
