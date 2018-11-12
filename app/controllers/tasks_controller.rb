@@ -10,7 +10,12 @@ class TasksController < ApplicationController
   end
 
   def show
-    @user_task = current_user.tasks.find_by(id: params[:id])
+    # @user_task = current_user.tasks.find_by(id: params[:id])
+    # if @user_task
+    #   return @user_task
+    # else
+    #   return false
+    # end
   end
 
   def new
@@ -54,7 +59,7 @@ class TasksController < ApplicationController
   end
   
   def set_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
   end
   
 end

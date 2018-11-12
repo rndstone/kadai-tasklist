@@ -1,10 +1,10 @@
-<% if @user_task %>
-    <h1><%= @user_task.id %>の詳細</h1>
+<% if @task %>
+    <h1><%= @task.id %>の詳細</h1>
     
-    <p>内容: <%= @user_task.content %></p>
-    <p>ステータス: <%= @user_task.status %></p>
-    <%= link_to '編集する', edit_task_path(@user_task) %>
-    <%= link_to '削除する', @user_task, method: :delete, data: {confirm: '本当に削除していいですか？'} %>
+    <p>内容: <%= @task.content %></p>
+    <p>ステータス: <%= @task.status %></p>
+    <%= link_to '編集する', edit_task_path(@task) %>
+    <%= link_to '削除する', @task, method: :delete, data: {confirm: '本当に削除していいですか？'} %>
 <% else %>
     <p>タスクがありません。</p>
 <% end %>
